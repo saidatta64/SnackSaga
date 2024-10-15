@@ -24,6 +24,9 @@ struct Bill {
     string invoiceNumber;
     string date;
     vector<Food> items;
+    string packageType;
+    string deliveryType;
+    double deliveryCharge;
 };
 
 vector<Food> foodMenu;
@@ -50,6 +53,7 @@ void displayError();
 int getValidIntInput();
 double getValidDoubleInput();
 string getValidStringInput();
+int discount(double total);
 
 int main() {
     initializeMenu();
@@ -59,25 +63,24 @@ int main() {
 
 void initializeMenu() {
     foodMenu = {
-        {"Butter Cake", "11", 1500, 50},
-        {"Chocolate Cake", "12", 3000, 50},
-        {"Apple Cake", "13", 1000, 50},
-        {"Pol Cake", "14", 1250, 50},
-        {"Vegetable Roll", "15", 50, 50},
-        {"Samosa", "16", 50, 50},
-        {"Seeni Sambol Bun", "17", 50, 50},
-        {"Fish Bun", "18", 50, 50},
-        {"Egg Bun", "19", 50, 50},
+        {"Butter Cake", "11", 500, 50},
+        {"Chocolate Cake", "12", 300, 50},
+        {"Apple Cake", "13", 150, 50},
+        {"Pol Cake", "14", 125, 50},
+        {"Vegetable Roll", "15", 35, 50},
+        {"Samosa", "16", 25, 50},
+        {"Seeni Sambol Bun", "17", 30, 50},
+        {"Fish Bun", "18", 45, 50},
+        {"Egg Bun", "19", 30, 50},
         {"Chicken Cutlet", "20", 50, 50},
         {"Chicken Roll", "21", 60, 50},
-        {"Egg Roll", "22", 45, 50},
+        {"Egg Roll", "22", 40, 50},
         {"Chicken Pie", "23", 70, 50},
-        {"Beer", "24", 150, 50},
         {"Coffee", "25", 15, 50},
         {"Plain Tea", "26", 10, 50},
         {"Milk Tea", "29", 20, 50},
-        {"Normal Package", "30", 15000, 50},
-        {"Super Package", "31", 20000, 50}
+        {"Normal Package", "30", 70, 50},
+        {"Super Package", "31", 100, 50}
     };
 }
 
@@ -450,6 +453,24 @@ void userMenu() {
     }
 }
 
+int discount(double total) {
+    if (total > 500) {
+        return 20;
+    } 
+    else if(total > 250){
+        return 15;
+    }
+    else if(total > 200){
+        return 10;
+    }
+    else if(total > 100){
+        return 5;
+    }
+    else{
+        return 0;
+    }
+}
+
 void buyAndGenerateBill() {
     system("cls");
     Bill newBill;
@@ -500,6 +521,27 @@ void buyAndGenerateBill() {
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     } while (addMore == 'Y' || addMore == 'y');
 
+    setColor(15);
+    cout << "\n\t\tChoose package type:" << endl;
+    cout << "\t\t1. Normal Package" << endl;
+    cout << "\t\t2. Super Package" << endl;
+    cout << "\t\tEnter your choice (1 or 2): ";
+    int packageChoice = getValidIntInput();
+    newBill.packageType = (packageChoice == 1) ? "Normal Package" : "Super Package";
+
+    cout << "\n\t\tChoose delivery type:" << endl;
+    cout << "\t\t1. Standard Delivery (Rs. 50)" << endl;
+    cout << "\t\t2. Express Delivery (Rs. 100)" << endl;
+    cout << "\t\tEnter your choice (1 or 2): ";
+    int deliveryChoice = getValidIntInput();
+    if (deliveryChoice == 1) {
+        newBill.deliveryType = "Standard Delivery";
+        newBill.deliveryCharge = 50.0;
+    } else {
+        newBill.deliveryType = "Express Delivery";
+        newBill.deliveryCharge = 100.0;
+    }
+
     system("cls");
     setColor(14);
     cout << "\t\t-----------------------------------------" << endl;
@@ -509,6 +551,8 @@ void buyAndGenerateBill() {
     cout << "\t\tCustomer: " << newBill.billedTo << endl;
     cout << "\t\tInvoice Number: " << newBill.invoiceNumber << endl;
     cout << "\t\tDate: " << newBill.date << endl;
+    cout << "\t\tPackage Type: " << newBill.packageType << endl;
+    cout << "\t\tDelivery Type: " << newBill.deliveryType << endl;
     setColor(11);
     cout << "\n\t\tItems:" << endl;
     cout << setw(20) << "Name" << setw(10) << "Price" << setw(10) << "Quantity" << setw(10) << "Total" << endl;
@@ -522,8 +566,13 @@ void buyAndGenerateBill() {
     }
 
     setColor(10);
-    cout << "\n\t\tTotal Amount: " << total << endl;
-
+    cout << "\n\t\tSubtotal: " << total << endl;
+    cout << "\t\tDelivery Charge: " << newBill.deliveryCharge << endl;
+    double grandTotal = total + newBill.deliveryCharge;
+    int dis = discount(grandTotal);
+    cout << "\t\tDiscount: " << dis <<" % "<< endl;
+    grandTotal = grandTotal - (grandTotal * dis / 100);
+    cout << "\t\tGrand Total: " << grandTotal << endl;
     setColor(14);
     cout << "\n\t\tPress any key to return to user menu...";
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -606,6 +655,27 @@ void createInvoice() {
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     } while (addMore == 'Y' || addMore == 'y');
 
+    setColor(15);
+    cout << "\n\t\tChoose package type:" << endl;
+    cout << "\t\t1. Normal Package" << endl;
+    cout << "\t\t2. Super Package" << endl;
+    cout << "\t\tEnter your choice (1 or 2): ";
+    int packageChoice = getValidIntInput();
+    newInvoice.packageType = (packageChoice == 1) ? "Normal Package" : "Super Package";
+
+    cout << "\n\t\tChoose delivery type:" << endl;
+    cout << "\t\t1. Standard Delivery (Rs. 50)" << endl;
+    cout << "\t\t2. Express Delivery (Rs. 100)" << endl;
+    cout << "\t\tEnter your choice (1 or 2): ";
+    int deliveryChoice = getValidIntInput();
+    if (deliveryChoice == 1) {
+        newInvoice.deliveryType = "Standard Delivery";
+        newInvoice.deliveryCharge = 50.0;
+    } else {
+        newInvoice.deliveryType = "Express Delivery";
+        newInvoice.deliveryCharge = 100.0;
+    }
+
     system("cls");
     setColor(14);
     cout << "\t\t-----------------------------------------" << endl;
@@ -615,6 +685,8 @@ void createInvoice() {
     cout << "\t\tCustomer: " << newInvoice.billedTo << endl;
     cout << "\t\tInvoice Number: " << newInvoice.invoiceNumber << endl;
     cout << "\t\tDate: " << newInvoice.date << endl;
+    cout << "\t\tPackage Type: " << newInvoice.packageType << endl;
+    cout << "\t\tDelivery Type: " << newInvoice.deliveryType << endl;
     setColor(11);
     cout << "\n\t\tItems:" << endl;
     cout << setw(20) << "Name" << setw(10) << "Price" << setw(10) << "Quantity" << setw(10) << "Total" << endl;
@@ -628,10 +700,10 @@ void createInvoice() {
     }
 
     setColor(10);
-    cout << "\n\t\tTotal Amount: " << total << endl;
-
-    double tax = total * 0.1;
-    double grandTotal = total + tax;
+    cout << "\n\t\tSubtotal: " << total << endl;
+    cout << "\t\tDelivery Charge: " << newInvoice.deliveryCharge << endl;
+    double tax = total * 0.18;
+    double grandTotal = total + tax + newInvoice.deliveryCharge;
 
     cout << "\t\tTax (10%): " << tax << endl;
     cout << "\t\tGrand Total: " << grandTotal << endl;

@@ -1,60 +1,96 @@
 # SnackSaga
 
-SnackSaga is a C++ console application for managing a food ordering and inventory system. It provides different interfaces for administrators, users, and accountants.
+SnackSaga is a console-based food ordering and management system implemented in C++. It provides functionality for administrators, users, and accountants to manage food items, place orders, and generate invoices.
 
 ## Features
 
-- **Admin Interface**:
+- **User Roles**: Admin, User, and Accountant
+- **Admin Functions**: 
   - View all food items
   - Search for specific food items
   - Add new users
   - Search for users
   - Add new food products
-
-- **User Interface**:
+- **User Functions**:
   - View all food items
   - Search for specific food items
-  - Generate bills for orders
-
-- **Accountant Interface**:
+  - Place orders and generate bills
+- **Accountant Functions**:
   - View all food items
   - Search for specific food items
   - Create invoices
+- **Color-coded console interface** for better user experience
+- **Input validation** to ensure data integrity
 
-## Getting Started
+## Setup
 
-### Prerequisites
-
-- C++ compiler (supporting C++11 or later)
-- Windows operating system (for console color support)
-
-### Compilation
-
-
-### Running the Program
-
-Run the compiled executable:
-
+1. Ensure you have a C++ compiler installed on your system.
+2. Clone this repository or download the source code.
+3. Compile the `DS.cpp` file using your C++ compiler.
+   ```
+   g++ DS.cpp -o SnackSaga
+   ```
+4. Run the compiled executable.
+   ```
+   ./SnackSaga
+   ```
 
 ## Usage
 
-1. Upon starting, you'll see the main menu with options for Admin, User, Accountant, Help, and Exit.
-2. Select your role by entering the corresponding number.
-3. For Admin and Accountant logins, use the following credentials:
-   - Admin: Username: "Jayesh", Password: "1234"
-   - Accountant: Username: "Saidatta", Password: "1234"
-4. For User login, enter any of the predefined usernames (e.g., "Prasad", "Pavani", "Shrihar", "Sanket", "Samay").
-5. Follow the on-screen prompts to navigate through the system and perform various operations.
+Upon running the program, you'll be presented with a main menu:
+
+1. Admin
+2. User
+3. Accountant
+4. Help
+5. Exit
+
+Select the appropriate option and follow the on-screen prompts.
+
+### Admin Login
+- Username: Jayesh
+- Password: 1234
+
+### Accountant Login
+- Username: Saidatta
+- Password: 1234
+
+### User Login
+Users can log in with any of the following usernames:
+- Prasad
+- Pavani
+- Shrihar
+- Sanket
+- Samay
+
+## Project Structure
+
+The project is contained in a single file `DS.cpp`, which includes all the necessary functions and data structures.
+
+[A class diagram or system architecture diagram could be added here to visualize the structure of the program]
+
+## Data Structures Used
+
+- `struct Food`: Represents a food item with name, ID, price, and quantity.
+- `struct Bill`: Represents a bill or invoice with customer details, items, and delivery information.
+- `vector<Food>`: Used to store the food menu.
+- `vector<string>`: Used to store user names.
+
+## Future Improvements
+
+- Implement data persistence (file I/O or database integration)
+- Add more robust error handling and logging
+- Implement a graphical user interface (GUI)
+- Add unit tests for critical functions
 
 ## Contributing
 
-Contributions to improve SnackSaga are welcome. Please feel free to fork the repository, make changes, and submit a pull request.
+Contributions to SnackSaga are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-This project is open-source and available under the [MIT License](https://opensource.org/licenses/MIT).
+[Add your chosen license here]
 
-## Support
+## Contact
 
-For technical support, please contact: support@snacksaga.com
-
+For support or queries, please contact: support@snacksaga.com

@@ -3,12 +3,11 @@
 #include <vector>
 #include <iomanip>
 #include <limits>
-#include <algorithm> // Add this for std::find and std::find_if
-#include <windows.h> // Add this for Windows console colors
+#include <algorithm>
+#include <windows.h>
 
 using namespace std;
 
-// Function to set console text color
 void setColor(int color) {
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
 }
@@ -48,9 +47,9 @@ void createInvoice();
 void exitProgram();
 void displayHelp();
 void displayError();
-int getValidIntInput(); // Function to check for valid integer input
-double getValidDoubleInput(); // Function to check for valid double input
-string getValidStringInput(); // Function to check for valid string input
+int getValidIntInput();
+double getValidDoubleInput();
+string getValidStringInput();
 
 int main() {
     initializeMenu();
@@ -91,9 +90,9 @@ int getValidIntInput() {
         } else {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            setColor(12); // Light Red
+            setColor(12);
             cout << "\t\tInvalid input. Please enter a number: ";
-            setColor(15); // White
+            setColor(15);
         }
     }
 }
@@ -107,9 +106,9 @@ double getValidDoubleInput() {
         } else {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            setColor(12); // Light Red
+            setColor(12);
             cout << "\t\tInvalid input. Please enter a number: ";
-            setColor(15); // White
+            setColor(15);
         }
     }
 }
@@ -121,26 +120,26 @@ string getValidStringInput() {
         if (!input.empty()) {
             return input;
         } else {
-            setColor(12); // Light Red
+            setColor(12);
             cout << "\t\tInvalid input. Please enter a non-empty string: ";
-            setColor(15); // White
+            setColor(15);
         }
     }
 }
 
 void mainMenu() {
     system("cls");
-    setColor(14); // Yellow
+    setColor(14);
     cout << "\n\t\t-----------------------------------------" << endl;
     cout << "\t\t-\t\tSnackSaga\t\t- " << endl;
     cout << "\t\t-----------------------------------------" << endl;
-    setColor(11); // Light Cyan
+    setColor(11);
     cout << "\t\t-\t1. Admin \t2. User\t\t-" << endl;
     cout << "\t\t-\t3. Accountant \t4. Help\t\t-" << endl;
     cout << "\t\t-\t5. Exit \t\t\t-" << endl;
-    setColor(14); // Yellow
+    setColor(14);
     cout << "\t\t-----------------------------------------" << endl;
-    setColor(15); // White
+    setColor(15);
     cout << "\t\t\tEnter your choice: ";
 
     int choice = getValidIntInput();
@@ -158,11 +157,11 @@ void mainMenu() {
 void adminLogin() {
     system("cls");
     string username, password;
-    setColor(14); // Yellow
+    setColor(14);
     cout << "\t\t-----------------------------------------" << endl;
     cout << "\t\t-            Admin Login                -" << endl;
     cout << "\t\t-----------------------------------------" << endl;
-    setColor(15); // White
+    setColor(15);
     cout << "\t\tUsername: ";
     username = getValidStringInput();
     cout << "\t\tPassword: ";
@@ -171,7 +170,7 @@ void adminLogin() {
     if (username == "Jayesh" && password == "1234") {
         adminMenu();
     } else {
-        setColor(12); // Light Red
+        setColor(12);
         cout << "\t\tInvalid credentials. Try again? (Y/N): ";
         char choice;
         cin >> choice;
@@ -186,17 +185,17 @@ void adminLogin() {
 
 void adminMenu() {
     system("cls");
-    setColor(14); // Yellow
+    setColor(14);
     cout << "\t\t--------------------------------------" << endl;
     cout << "\t\t-       SnackSaga - Admin Menu       -" << endl;
     cout << "\t\t--------------------------------------" << endl;
-    setColor(11); // Light Cyan
+    setColor(11);
     cout << "\t\t- 1. View all items  2. Search Items -" << endl;
     cout << "\t\t- 3. Search User     4. Add User     -" << endl;
     cout << "\t\t- 5. Add Product     6. Main Menu    -" << endl;
-    setColor(14); // Yellow
+    setColor(14);
     cout << "\t\t--------------------------------------" << endl;
-    setColor(15); // White
+    setColor(15);
     cout << "\t\t Enter your option: ";
 
     int choice = getValidIntInput();
@@ -215,11 +214,11 @@ void adminMenu() {
 void userLogin() {
     system("cls");
     string username;
-    setColor(14); // Yellow
+    setColor(14);
     cout << "\t\t-----------------------------------------" << endl;
     cout << "\t\t-            User Login                 -" << endl;
     cout << "\t\t-----------------------------------------" << endl;
-    setColor(15); // White
+    setColor(15);
     cout << "\t\tUsername: ";
     username = getValidStringInput();
 
@@ -227,7 +226,7 @@ void userLogin() {
     if (it != users.end()) {
         userMenu();
     } else {
-        setColor(12); // Light Red
+        setColor(12);
         cout << "\t\tUser not found. Try again? (Y/N): ";
         char choice;
         cin >> choice;
@@ -243,11 +242,11 @@ void userLogin() {
 void accountantLogin() {
     system("cls");
     string username, password;
-    setColor(14); // Yellow
+    setColor(14);
     cout << "\t\t-----------------------------------------" << endl;
     cout << "\t\t-         Accountant Login              -" << endl;
     cout << "\t\t-----------------------------------------" << endl;
-    setColor(15); // White
+    setColor(15);
     cout << "\t\tUsername: ";
     username = getValidStringInput();
     cout << "\t\tPassword: ";
@@ -256,7 +255,7 @@ void accountantLogin() {
     if (username == "Saidatta" && password == "1234") {
         accountantMenu();
     } else {
-        setColor(12); // Light Red
+        setColor(12);
         cout << "\t\tInvalid credentials. Try again? (Y/N): ";
         char choice;
         cin >> choice;
@@ -271,36 +270,35 @@ void accountantLogin() {
 
 void displayFoodList() {
     system("cls");
-    setColor(14); // Yellow
+    setColor(14);
     cout << "\t\t-----------------------------------------" << endl;
     cout << "\t\t-           Food Menu List              -" << endl;
     cout << "\t\t-----------------------------------------" << endl;
-    setColor(11); // Light Cyan
+    setColor(11);
     cout << setw(5) << "ID" << setw(20) << "Name" << setw(10) << "Price" << endl;
-    setColor(15); // White
+    setColor(15);
     for (const auto& food : foodMenu) {
         cout << setw(5) << food.id << setw(20) << food.name << setw(10) << food.price << endl;
     }
-    setColor(14); // Yellow
+    setColor(14);
     cout << "\n\t\tPress any key to return to the previous menu...";
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     cin.get();
-    // This function is called from multiple menus, so we need to determine which menu to return to
-    if (cin.rdbuf()->in_avail() == 0) {  // Check if input buffer is empty
-        accountantMenu();  // Return to accountant menu if called from there
+    if (cin.rdbuf()->in_avail() == 0) {
+        accountantMenu();
     } else {
-        userMenu();  // Otherwise, return to user menu
+        userMenu();
     }
 }
 
 void searchFood() {
     system("cls");
     string searchTerm;
-    setColor(14); // Yellow
+    setColor(14);
     cout << "\t\t-----------------------------------------" << endl;
     cout << "\t\t-           Search Food Item            -" << endl;
     cout << "\t\t-----------------------------------------" << endl;
-    setColor(15); // White
+    setColor(15);
     cout << "\t\tEnter food name or ID to search: ";
     searchTerm = getValidStringInput();
 
@@ -309,17 +307,17 @@ void searchFood() {
     });
 
     if (it != foodMenu.end()) {
-        setColor(10); // Light Green
+        setColor(10);
         cout << "\n\t\tFood Item Found:" << endl;
         cout << "\t\tID: " << it->id << endl;
         cout << "\t\tName: " << it->name << endl;
         cout << "\t\tPrice: " << it->price << endl;
     } else {
-        setColor(12); // Light Red
+        setColor(12);
         cout << "\n\t\tFood item not found." << endl;
     }
 
-    setColor(14); // Yellow
+    setColor(14);
     cout << "\n\t\tPress any key to return to user menu...";
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     cin.get();
@@ -329,24 +327,24 @@ void searchFood() {
 void addUser() {
     system("cls");
     string newUser;
-    setColor(14); // Yellow
+    setColor(14);
     cout << "\t\t-----------------------------------------" << endl;
     cout << "\t\t-             Add New User              -" << endl;
     cout << "\t\t-----------------------------------------" << endl;
-    setColor(15); // White
+    setColor(15);
     cout << "\t\tEnter new username: ";
     newUser = getValidStringInput();
 
     if (std::find(users.begin(), users.end(), newUser) == users.end()) {
         users.push_back(newUser);
-        setColor(10); // Light Green
+        setColor(10);
         cout << "\n\t\tUser added successfully!" << endl;
     } else {
-        setColor(12); // Light Red
+        setColor(12);
         cout << "\n\t\tUser already exists!" << endl;
     }
 
-    setColor(14); // Yellow
+    setColor(14);
     cout << "\n\t\tPress any key to return to admin menu...";
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     cin.get();
@@ -356,24 +354,24 @@ void addUser() {
 void searchUser() {
     system("cls");
     string searchTerm;
-    setColor(14); // Yellow
+    setColor(14);
     cout << "\t\t-----------------------------------------" << endl;
     cout << "\t\t-             Search User               -" << endl;
     cout << "\t\t-----------------------------------------" << endl;
-    setColor(15); // White
+    setColor(15);
     cout << "\t\tEnter username to search: ";
     searchTerm = getValidStringInput();
 
     auto it = find(users.begin(), users.end(), searchTerm);
     if (it != users.end()) {
-        setColor(10); // Light Green
+        setColor(10);
         cout << "\n\t\tUser found: " << *it << endl;
     } else {
-        setColor(12); // Light Red
+        setColor(12);
         cout << "\n\t\tUser not found." << endl;
     }
 
-    setColor(14); // Yellow
+    setColor(14);
     cout << "\n\t\tPress any key to return to admin menu...";
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     cin.get();
@@ -383,11 +381,12 @@ void searchUser() {
 void addProduct() {
     system("cls");
     Food newFood;
-    setColor(14); // Yellow
+    setColor(14);
     cout << "\t\t-----------------------------------------" << endl;
     cout << "\t\t-           Add New Product             -" << endl;
     cout << "\t\t-----------------------------------------" << endl;
-    setColor(15); // White
+    setColor(15);
+    setColor(15);
     cout << "\t\tEnter product name: ";
     newFood.name = getValidStringInput();
     cout << "\t\tEnter product ID: ";
@@ -398,10 +397,10 @@ void addProduct() {
     newFood.quantity = getValidIntInput();
 
     foodMenu.push_back(newFood);
-    setColor(10); // Light Green
+    setColor(10);
     cout << "\n\t\tProduct added successfully!" << endl;
 
-    setColor(14); // Yellow
+    setColor(14);
     cout << "\n\t\tPress any key to return to admin menu...";
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     cin.get();
@@ -410,16 +409,16 @@ void addProduct() {
 
 void userMenu() {
     system("cls");
-    setColor(14); // Yellow
+    setColor(14);
     cout << "\t\t--------------------------------------" << endl;
     cout << "\t\t-       SnackSaga - User Menu        -" << endl;
     cout << "\t\t--------------------------------------" << endl;
-    setColor(11); // Light Cyan
+    setColor(11);
     cout << "\t\t- 1. View all items  2. Search Items -" << endl;
     cout << "\t\t- 3. Generate Bill   4. Main Menu    -" << endl;
-    setColor(14); // Yellow
+    setColor(14);
     cout << "\t\t--------------------------------------" << endl;
-    setColor(15); // White
+    setColor(15);
     cout << "\t\t Enter your option: ";
 
     int choice = getValidIntInput();
@@ -436,11 +435,11 @@ void userMenu() {
 void generateBill() {
     system("cls");
     Bill newBill;
-    setColor(14); // Yellow
+    setColor(14);
     cout << "\t\t-----------------------------------------" << endl;
     cout << "\t\t-           Generate Bill               -" << endl;
     cout << "\t\t-----------------------------------------" << endl;
-    setColor(15); // White
+    setColor(15);
     cout << "\t\tEnter customer name: ";
     newBill.billedTo = getValidStringInput();
     cout << "\t\tEnter invoice number: ";
@@ -464,49 +463,48 @@ void generateBill() {
                 billItem.quantity = quantity;
                 newBill.items.push_back(billItem);
                 it->quantity -= quantity;
-                setColor(10); // Light Green
+                setColor(10);
                 cout << "\t\tItem added to bill." << endl;
             } else {
-                setColor(12); // Light Red
+                setColor(12);
                 cout << "\t\tInsufficient quantity in stock." << endl;
             }
         } else {
-            setColor(12); // Light Red
+            setColor(12);
             cout << "\t\tItem not found." << endl;
         }
 
-        setColor(15); // White
+        setColor(15);
         cout << "\t\tAdd more items? (Y/N): ";
         cin >> addMore;
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     } while (addMore == 'Y' || addMore == 'y');
 
-    // Display the bill
     system("cls");
-    setColor(14); // Yellow
+    setColor(14);
     cout << "\t\t-----------------------------------------" << endl;
     cout << "\t\t-               Bill                    -" << endl;
     cout << "\t\t-----------------------------------------" << endl;
-    setColor(15); // White
+    setColor(15);
     cout << "\t\tCustomer: " << newBill.billedTo << endl;
     cout << "\t\tInvoice Number: " << newBill.invoiceNumber << endl;
     cout << "\t\tDate: " << newBill.date << endl;
-    setColor(11); // Light Cyan
+    setColor(11);
     cout << "\n\t\tItems:" << endl;
     cout << setw(20) << "Name" << setw(10) << "Price" << setw(10) << "Quantity" << setw(10) << "Total" << endl;
 
     double total = 0;
-    setColor(15); // White
+    setColor(15);
     for (const auto& item : newBill.items) {
         double itemTotal = item.price * item.quantity;
         cout << setw(20) << item.name << setw(10) << item.price << setw(10) << item.quantity << setw(10) << itemTotal << endl;
         total += itemTotal;
     }
 
-    setColor(10); // Light Green
+    setColor(10);
     cout << "\n\t\tTotal Amount: " << total << endl;
 
-    setColor(14); // Yellow
+    setColor(14);
     cout << "\n\t\tPress any key to return to user menu...";
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     cin.get();
@@ -515,16 +513,16 @@ void generateBill() {
 
 void accountantMenu() {
     system("cls");
-    setColor(14); // Yellow
+    setColor(14);
     cout << "\t\t--------------------------------------" << endl;
     cout << "\t\t-    SnackSaga - Accountant Menu     -" << endl;
     cout << "\t\t--------------------------------------" << endl;
-    setColor(11); // Light Cyan
+    setColor(11);
     cout << "\t\t- 1. View all items  2. Search Items -" << endl;
     cout << "\t\t- 3. Create Invoice  4. Main Menu    -" << endl;
-    setColor(14); // Yellow
+    setColor(14);
     cout << "\t\t--------------------------------------" << endl;
-    setColor(15); // White
+    setColor(15);
     cout << "\t\t Enter your option: ";
 
     int choice = getValidIntInput();
@@ -541,11 +539,11 @@ void accountantMenu() {
 void createInvoice() {
     system("cls");
     Bill newInvoice;
-    setColor(14); // Yellow
+    setColor(14);
     cout << "\t\t-----------------------------------------" << endl;
     cout << "\t\t-           Create Invoice              -" << endl;
     cout << "\t\t-----------------------------------------" << endl;
-    setColor(15); // White
+    setColor(15);
     cout << "\t\tEnter customer name: ";
     newInvoice.billedTo = getValidStringInput();
     cout << "\t\tEnter invoice number: ";
@@ -569,56 +567,54 @@ void createInvoice() {
                 invoiceItem.quantity = quantity;
                 newInvoice.items.push_back(invoiceItem);
                 it->quantity -= quantity;
-                setColor(10); // Light Green
+                setColor(10);
                 cout << "\t\tItem added to invoice." << endl;
             } else {
-                setColor(12); // Light Red
+                setColor(12);
                 cout << "\t\tInsufficient quantity in stock." << endl;
             }
         } else {
-            setColor(12); // Light Red
+            setColor(12);
             cout << "\t\tItem not found." << endl;
         }
 
-        setColor(15); // White
+        setColor(15);
         cout << "\t\tAdd more items? (Y/N): ";
         cin >> addMore;
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     } while (addMore == 'Y' || addMore == 'y');
 
-    // Display the invoice
     system("cls");
-    setColor(14); // Yellow
+    setColor(14);
     cout << "\t\t-----------------------------------------" << endl;
     cout << "\t\t-               Invoice                 -" << endl;
     cout << "\t\t-----------------------------------------" << endl;
-    setColor(15); // White
+    setColor(15);
     cout << "\t\tCustomer: " << newInvoice.billedTo << endl;
     cout << "\t\tInvoice Number: " << newInvoice.invoiceNumber << endl;
     cout << "\t\tDate: " << newInvoice.date << endl;
-    setColor(11); // Light Cyan
+    setColor(11);
     cout << "\n\t\tItems:" << endl;
     cout << setw(20) << "Name" << setw(10) << "Price" << setw(10) << "Quantity" << setw(10) << "Total" << endl;
 
     double total = 0;
-    setColor(15); // White
+    setColor(15);
     for (const auto& item : newInvoice.items) {
         double itemTotal = item.price * item.quantity;
         cout << setw(20) << item.name << setw(10) << item.price << setw(10) << item.quantity << setw(10) << itemTotal << endl;
         total += itemTotal;
     }
 
-    setColor(10); // Light Green
+    setColor(10);
     cout << "\n\t\tTotal Amount: " << total << endl;
 
-    // Additional accounting details
-    double tax = total * 0.1; // Assuming 10% tax
+    double tax = total * 0.1;
     double grandTotal = total + tax;
 
     cout << "\t\tTax (10%): " << tax << endl;
     cout << "\t\tGrand Total: " << grandTotal << endl;
 
-    setColor(14); // Yellow
+    setColor(14);
     cout << "\n\t\tPress any key to return to accountant menu...";
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     cin.get();
@@ -627,24 +623,24 @@ void createInvoice() {
 
 void exitProgram() {
     system("cls");
-    setColor(14); // Yellow
+    setColor(14);
     cout << "\n\t\tThank you for using SnackSaga. Goodbye!....Do Visit Again" << endl;
-    setColor(15); // White
+    setColor(15);
     exit(0);
 }
 
 void displayHelp() {
     system("cls");
-    setColor(14); // Yellow
+    setColor(14);
     cout << "\t\t-----------------------------------------" << endl;
     cout << "\t\t-               Help Menu               -" << endl;
     cout << "\t\t-----------------------------------------" << endl;
-    setColor(11); // Light Cyan
+    setColor(11);
     cout << "\t\t1. Admin: Manage items and users" << endl;
     cout << "\t\t2. User: View items and generate bills" << endl;
     cout << "\t\t3. Accountant: View items and create invoices" << endl;
     cout << "\t\t4. For technical support, contact: support@snacksaga.com" << endl;
-    setColor(14); // Yellow
+    setColor(14);
     cout << "\n\t\tPress any key to return to main menu...";
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     cin.get();
@@ -653,13 +649,13 @@ void displayHelp() {
 
 void displayError() {
     system("cls");
-    setColor(12); // Light Red
+    setColor(12);
     cout << "\t-----------------------------------------------------------------" << endl;
     cout << "\t-                           ERROR!!!                            -" << endl;
     cout << "\t-----------------------------------------------------------------" << endl;
     cout << "\t                        Invalid Entry!                           " << endl;
     cout << "\t-----------------------------------------------------------------" << endl;
-    setColor(14); // Yellow
+    setColor(14);
     cout << "\t\tPress any key to return to the main menu...";
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     cin.get();

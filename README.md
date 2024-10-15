@@ -26,9 +26,9 @@ SnackSaga is a console-based food ordering and management system implemented in 
 
 1. Ensure you have a C++ compiler installed on your system.
 2. Clone this repository or download the source code.
-3. Compile the `DS.cpp` file using your C++ compiler.
+3. Compile the `main.cpp` file using your C++ compiler.
    ```
-   g++ DS.cpp -o SnackSaga
+   g++ main.cpp -o SnackSaga
    ```
 4. Run the compiled executable.
    ```

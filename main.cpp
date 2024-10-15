@@ -35,13 +35,13 @@ void adminLogin();
 void adminMenu();
 void userLogin();
 void accountantLogin();
-void displayFoodList();
-void searchFood();
+void displayFoodList(int callerMenu);
+void searchFood(int callerMenu);
 void addUser();
 void searchUser();
 void addProduct();
 void userMenu();
-void generateBill();
+void buyAndGenerateBill();
 void accountantMenu();
 void createInvoice();
 void exitProgram();
@@ -201,8 +201,8 @@ void adminMenu() {
     int choice = getValidIntInput();
 
     switch (choice) {
-        case 1: displayFoodList(); break;
-        case 2: searchFood(); break;
+        case 1: displayFoodList(1); break;
+        case 2: searchFood(1); break;
         case 3: searchUser(); break;
         case 4: addUser(); break;
         case 5: addProduct(); break;
@@ -268,30 +268,39 @@ void accountantLogin() {
     }
 }
 
-void displayFoodList() {
+void displayFoodList(int callerMenu) {
     system("cls");
     setColor(14);
     cout << "\t\t-----------------------------------------" << endl;
     cout << "\t\t-           Food Menu List              -" << endl;
     cout << "\t\t-----------------------------------------" << endl;
     setColor(11);
-    cout << setw(5) << "ID" << setw(20) << "Name" << setw(10) << "Price" << endl;
+    cout << setw(5) << "ID" << setw(20) << "Name" << setw(10) << "Price";
+    if (callerMenu == 1 || callerMenu == 3) {
+        cout << setw(10) << "Quantity";
+    }
+    cout << endl;
     setColor(15);
     for (const auto& food : foodMenu) {
-        cout << setw(5) << food.id << setw(20) << food.name << setw(10) << food.price << endl;
+        cout << setw(5) << food.id << setw(20) << food.name << setw(10) << food.price;
+        if (callerMenu == 1 || callerMenu == 3) {
+            cout << setw(10) << food.quantity;
+        }
+        cout << endl;
     }
     setColor(14);
     cout << "\n\t\tPress any key to return to the previous menu...";
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     cin.get();
-    if (cin.rdbuf()->in_avail() == 0) {
-        accountantMenu();
-    } else {
-        userMenu();
+    switch (callerMenu) {
+        case 1: adminMenu(); break;
+        case 2: userMenu(); break;
+        case 3: accountantMenu(); break;
+        default: mainMenu();
     }
 }
 
-void searchFood() {
+void searchFood(int callerMenu) {
     system("cls");
     string searchTerm;
     setColor(14);
@@ -312,16 +321,24 @@ void searchFood() {
         cout << "\t\tID: " << it->id << endl;
         cout << "\t\tName: " << it->name << endl;
         cout << "\t\tPrice: " << it->price << endl;
+        if (callerMenu == 1 || callerMenu == 3) {
+            cout << "\t\tQuantity: " << it->quantity << endl;
+        }
     } else {
         setColor(12);
         cout << "\n\t\tFood item not found." << endl;
     }
 
     setColor(14);
-    cout << "\n\t\tPress any key to return to user menu...";
+    cout << "\n\t\tPress any key to return to the previous menu...";
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     cin.get();
-    userMenu();
+    switch (callerMenu) {
+        case 1: adminMenu(); break;
+        case 2: userMenu(); break;
+        case 3: accountantMenu(); break;
+        default: mainMenu();
+    }
 }
 
 void addUser() {
@@ -415,7 +432,8 @@ void userMenu() {
     cout << "\t\t--------------------------------------" << endl;
     setColor(11);
     cout << "\t\t- 1. View all items  2. Search Items -" << endl;
-    cout << "\t\t- 3. Generate Bill   4. Main Menu    -" << endl;
+    cout << "\t\t- 3. Buy and Generate Bill           -" << endl;
+    cout << "\t\t- 4. Main Menu                       -" << endl;
     setColor(14);
     cout << "\t\t--------------------------------------" << endl;
     setColor(15);
@@ -424,20 +442,20 @@ void userMenu() {
     int choice = getValidIntInput();
 
     switch (choice) {
-        case 1: displayFoodList(); break;
-        case 2: searchFood(); break;
-        case 3: generateBill(); break;
+        case 1: displayFoodList(2); break;
+        case 2: searchFood(2); break;
+        case 3: buyAndGenerateBill(); break;
         case 4: mainMenu(); break;
         default: displayError();
     }
 }
 
-void generateBill() {
+void buyAndGenerateBill() {
     system("cls");
     Bill newBill;
     setColor(14);
     cout << "\t\t-----------------------------------------" << endl;
-    cout << "\t\t-           Generate Bill               -" << endl;
+    cout << "\t\t-       Buy and Generate Bill           -" << endl;
     cout << "\t\t-----------------------------------------" << endl;
     setColor(15);
     cout << "\t\tEnter customer name: ";
@@ -449,11 +467,13 @@ void generateBill() {
 
     char addMore;
     do {
-        string itemId;
-        cout << "\n\t\tEnter item ID to add to bill: ";
-        itemId = getValidStringInput();
+        string itemIdentifier;
+        cout << "\n\t\tEnter item name or ID to add to bill: ";
+        itemIdentifier = getValidStringInput();
 
-        auto it = find_if(foodMenu.begin(), foodMenu.end(), [&itemId](const Food& f) { return f.id == itemId; });
+        auto it = find_if(foodMenu.begin(), foodMenu.end(), [&itemIdentifier](const Food& f) { 
+            return f.id == itemIdentifier || f.name == itemIdentifier; 
+        });
         if (it != foodMenu.end()) {
             int quantity;
             cout << "\t\tEnter quantity: ";
@@ -467,11 +487,11 @@ void generateBill() {
                 cout << "\t\tItem added to bill." << endl;
             } else {
                 setColor(12);
-                cout << "\t\tInsufficient quantity in stock." << endl;
+                cout << "\t\tInsufficient quantity in stock. Available: " << it->quantity << endl;
             }
         } else {
             setColor(12);
-            cout << "\t\tItem not found." << endl;
+            cout << "\t\tItem not found or out of stock." << endl;
         }
 
         setColor(15);
@@ -528,8 +548,8 @@ void accountantMenu() {
     int choice = getValidIntInput();
 
     switch (choice) {
-        case 1: displayFoodList(); break;
-        case 2: searchFood(); break;
+        case 1: displayFoodList(3); break;
+        case 2: searchFood(3); break;
         case 3: createInvoice(); break;
         case 4: mainMenu(); break;
         default: displayError();
@@ -553,11 +573,13 @@ void createInvoice() {
 
     char addMore;
     do {
-        string itemId;
-        cout << "\n\t\tEnter item ID to add to invoice: ";
-        itemId = getValidStringInput();
+        string itemIdentifier;
+        cout << "\n\t\tEnter item name or ID to add to invoice: ";
+        itemIdentifier = getValidStringInput();
 
-        auto it = find_if(foodMenu.begin(), foodMenu.end(), [&itemId](const Food& f) { return f.id == itemId; });
+        auto it = find_if(foodMenu.begin(), foodMenu.end(), [&itemIdentifier](const Food& f) { 
+            return f.id == itemIdentifier || f.name == itemIdentifier; 
+        });
         if (it != foodMenu.end()) {
             int quantity;
             cout << "\t\tEnter quantity: ";
@@ -571,11 +593,11 @@ void createInvoice() {
                 cout << "\t\tItem added to invoice." << endl;
             } else {
                 setColor(12);
-                cout << "\t\tInsufficient quantity in stock." << endl;
+                cout << "\t\tInsufficient quantity in stock. Available: " << it->quantity << endl;
             }
         } else {
             setColor(12);
-            cout << "\t\tItem not found." << endl;
+            cout << "\t\tItem not found or out of stock." << endl;
         }
 
         setColor(15);
@@ -637,7 +659,7 @@ void displayHelp() {
     cout << "\t\t-----------------------------------------" << endl;
     setColor(11);
     cout << "\t\t1. Admin: Manage items and users" << endl;
-    cout << "\t\t2. User: View items and generate bills" << endl;
+    cout << "\t\t2. User: View items and buy products" << endl;
     cout << "\t\t3. Accountant: View items and create invoices" << endl;
     cout << "\t\t4. For technical support, contact: support@snacksaga.com" << endl;
     setColor(14);

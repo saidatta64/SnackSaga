@@ -1,6 +1,6 @@
 # SnackSaga
 
-Created the project with [Jayesh-Patil](https://github.com/Jayesh-2404)
+Created the project with [Jayesh-Patil](https://github.com/Jayesh-2404) [Prasad Wani](https://github.com/Prasad-2905)
 
 SnackSaga is a console-based food ordering and management system implemented in C++. It provides functionality for administrators, users, and accountants to manage food items, place orders, and generate invoices.
 
